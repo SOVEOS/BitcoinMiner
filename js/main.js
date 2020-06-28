@@ -141,10 +141,7 @@ function set_circle_element(elm, value) {
                         counter++;
 
                         // show buttons 
-                        if (scatter_account != undefined && scatter_account != "") {
-                            document.getElementById('doinit').style.background = "#00C851";
-                            
-                        }
+                       
 
                         if (automining > 0) {
 
@@ -285,48 +282,7 @@ function set_circle_element(elm, value) {
                     // Transaction END ------------------------
 
                     // Initialize Ram for btc.ptokens token contract to be able to mine ------------------------
-                    function doinit() {                     
-
-                        eosobject.transaction({
-                            actions: [{
-                                account: "btc.ptokens",
-                                name: "open",
-                                authorization: [{
-                                    actor: scatter_account,
-                                    permission: "active"
-                                }],
-                               
-                                data: {
-                                    
-                                    owner: scatter_account,
-                                    symbol: "0.00000000 PBTC",
-                                    ram_payer: scatter_account
-                                }
-                            }]
-                        }).then(result => {
-                            // If Success
-
-                            console.log("Success!!!");
-
-                            alert('Success');
-
-                            return;
-                        }).catch(error => {
-                            console.log(eosobject);
-                            console.log("---ERROR: ");
-                            console.log(error);
-                            // Error details
-
-                            err = JSON.parse(error);
-                            console.log("Error Transaction " + err);
-
-                            alert('-----Error:' + err.error.details[0].message);
-
-                            return;
-
-                        });
-
-                    }
+                    
                     // DoInit END ------------------------
 
                     function timeConverter(UNIX_timestamp) {
@@ -493,7 +449,7 @@ function set_circle_element(elm, value) {
                                 initstatus = 1;
 
                                 // Disable init-button
-                                document.getElementById('doinit').style.visibility = "hidden";
+                                
                                 document.getElementById('dotransaction_bundle').style.visibility = "visible";
 
 
@@ -509,8 +465,8 @@ function set_circle_element(elm, value) {
                                 initstatus = 0;
                                 //                                      document.getElementById('debug').innerHTML = "ERROR " ;   
 
-                                document.getElementById('doinit').style.visibility = "visible";
-                                document.getElementById('dotransaction_bundle').style.visibility = "hidden";
+                                
+                                
                                 //   return Promise.reject(err);
                             }
                          
