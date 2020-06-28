@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="icon" type="image/png" href="image/favicon.ico" sizes="42x42">
+
+    <script src="https://cdn.jsdelivr.net/npm/eosjs@16.0.9/lib/eos.min.js"></script>
+    <script src="js/bundles/scatterjs-core.min.js"></script>
+    <script src="js/bundles/scatterjs-plugin-eosjs.min.js"></script>
+    <script src="js/bundles/scatterjs-plugin-lynx.min.js"></script>
+   
+        <!-- Required meta tags -->
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/custom.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+
+    </head>
+
+    <body>
+
+
+        
+        <!--contains the "header" with POW Symbol and login button, and account name display on login-->
+        <div class="container-fluid border rounded bg-dark text-light shadow"> 
+        <br> 
+        <h1 class="row d-flex justify-content-center"><img src="image\BTC_Logo.svg" style="width: 50px; height: 50px;">itcoin Miner</h1>   
+        <h4 id='accountname' class="text-center">...</h4>
+        <br>
+        <div class="container" style="max-width: 576px">
+        <button type="button" class="btn btn-warning border border-dark btn-lg btn-block" id='buttontext' onclick='loginclick()'>LOGIN</button>
+        </div>
+        <br>    
+        </div>
+            
+        <!--this container basically contains the rest of the dapp, the rest of the containers and rows fit inside this one-->
+        <div class="container" style="max-width: 576px">
+            <div class="d-flex mt-1 mb-1 justify-content-center">
+                <button type="button" id='doinit' class='btn btn-outline-success btn-sm btn-block' onclick='doinit()'>Click Here to Initialize pBTC for Mining </button>
+            </div>
+            <!--EOS and POW Balance Display directly beneath "header"-->
+            <div class="row row-cols-2">
+                <h6 class='col text-center'>
+                    Balance
+                    <div id='eos_balance'>...</div>
+                </h6>
+                <h6 class='col text-center'>
+                    Balance
+                    <div id='btc_balance'>...</div>
+                </h6>
+            </div>
+            <br>
+
+
+           
+        
+            <!--This is the div / row set with the CPU and NET circles for user experience and feedback-->
+            <div class="row">
+                <div class="col">
+                    <svg viewbox="0, 0, 400, 400">
+ 
+                        <circle id='kreis' cx="200" cy="200" r="120" stroke="#eeeeee" stroke-width="30" fill="#ffffff" /> 
+                        <path id='mycpu' d="" fill="none" stroke="#55ff55" stroke-width="30"   stroke-linecap="round"  />
+                        <text id='mycpu_text' x='200' y='180' text-anchor="middle" font-size='80'>0%</text>
+                        <text id='mycpu_text' x='200' y='270' text-anchor="middle" font-size='70'>CPU</text>
+                    </svg>
+                </div>
+                
+                <div class="col">
+                    <svg viewbox="0, 0, 400, 400">
+                        <circle id='kreis' cx="200" cy="200" r="120" stroke="#eeeeee" stroke-width="30" fill="#ffffff" /> 
+                        <path id='mynet' d="" fill="none" stroke="#55ff55" stroke-width="30"   stroke-linecap="round"  />
+                        <text id='mynet_text' x='200' y='180' text-anchor="middle" font-size='80'>0%</text>
+                        <text id='mycpu_text' x='200' y='270' text-anchor="middle" font-size='70'>NET</text>
+                    </svg>
+                </div>
+            </div>
+            <br>      
+
+        <h6 id='powMiningRate' class="text-center">...</h6>
+          <!--checkbox for the automining feature, just check this and it will mine according to the parameters the user has set-->
+
+          <div class='d-flex'>Mine when reward is ≥<input type='number' min="0" step="0.00000001" class='text-center form-control m-2' id='target_mining_rate' value='0.00000001'></div>
+
+        <div class="row">
+            <div class="custom-control custom-checkbox m-4">
+                <input type='checkbox' class="custom-control-input" id='checkbox-3' onclick='switch_autominer(this)'>
+                <label class="custom-control-label" for='checkbox-3' style='font-size:15px;'>Auto</label>
+            </div>
+            <button type="button" class="btn btn-warning border border-dark btn-block col m-3 shadow" id='dotransaction_bundle' onclick='dotransaction_bundle()'>Mining Transactions X 1</button>  
+        </div>
+
+        
+        <!--this is the div for the slider-->
+        <div class="slidecontainer" style='width:100%;'>
+            <input type="range" min="1" max="10" step="1.0" class="slider" value='1' id="myRange" oninput="showVal(this.value)" onchange="showVal(this.value)">
+        </div>
+
+         <!--this is the little blocks that update by consecutively turning black one at a time when you are mining so that the user understands it is working-->    
+        <div style='width:100%;margin-left:0;margin-right:0;margin-top:10px;height:25px;border:none;'>
+            <svg viewbox="0, 0, 400, 10">
+                <rect id='rect1'  x="0" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect2'  x="40" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect3'  x="80" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect4'  x="120" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect5'  x="160" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect6'  x="200" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect7'  x="240" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect8'  x="280" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect9'  x="320" y="0" width="38" height="10" fill='#cccccc' />
+                <rect id='rect10' x="360" y="0" width="38" height="10" fill='#cccccc' />
+            </svg>
+        </div>
+
+
+    <!--node changing button / input area-->
+    <br>
+    <div class="input-group mb-2 shadow">
+        <div class="input-group-prepend">
+            <button id='nodebutton' class='btn btn-warning' type="button" onclick='change_node_click()'>Change Node</button>
+        </div>
+        <input id='scatter_host' class="text-center form-control" type='text' aria-describedby="basic-addon1" value=''>
+    </div>
+
+    <br>
+                                        
+</div> <!--closes the main container-->
+
+<script>
+        var init_node = "eu1.eosdac.io";
+        document.getElementById('scatter_host').value = init_node;
+</script>
+
+<script type="text/javascript" src="js/main.js"></script>
+           
+</body>
+
+</html>
