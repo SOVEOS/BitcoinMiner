@@ -42,12 +42,10 @@
         </div>
         <br>    
         </div>
+        <br>
             
         <!--this container basically contains the rest of the dapp, the rest of the containers and rows fit inside this one-->
         <div class="container" style="max-width: 576px">
-            <div class="d-flex mt-1 mb-1 justify-content-center">
-                <button type="button" id='doinit' class='btn btn-outline-success btn-sm btn-block' onclick='doinit()'>Click Here to Initialize pBTC for Mining </button>
-            </div>
             <!--EOS and POW Balance Display directly beneath "header"-->
             <div class="row row-cols-2">
                 <h6 class='col text-center'>
@@ -87,7 +85,7 @@
             </div>
             <br>      
 
-        <h6 id='powMiningRate' class="text-center">...</h6>
+        <h6 id='powMiningRate' class="text-center">click 'Mine x 1' to initialize miner</h6>
           <!--checkbox for the automining feature, just check this and it will mine according to the parameters the user has set-->
 
           <div class='d-flex'>Mine when reward is ≥<input type='number' min="0" step="0.00000001" class='text-center form-control m-2' id='target_mining_rate' value='0.00000001'></div>
@@ -97,7 +95,7 @@
                 <input type='checkbox' class="custom-control-input" id='checkbox-3' onclick='switch_autominer(this)'>
                 <label class="custom-control-label" for='checkbox-3' style='font-size:15px;'>Auto</label>
             </div>
-            <button type="button" class="btn btn-warning border border-dark btn-block col m-3 shadow" id='dotransaction_bundle' onclick='dotransaction_bundle()'>Mining Transactions X 1</button>  
+            <button type="button" class="btn btn-warning border border-dark btn-block col m-3 shadow" id='dotransaction_bundle' onclick='dotransaction_bundle()'>Mine X 1</button>  
         </div>
 
         
