@@ -694,7 +694,7 @@ function set_circle_element(elm, value) {
                     function showVal(val) {
 
 
-                        document.getElementById('dotransaction_bundle').innerHTML = "Mining Transactions X " + val;
+                        document.getElementById('dotransaction_bundle').innerHTML = "Mine X " + val;
                         
                     } 
 
