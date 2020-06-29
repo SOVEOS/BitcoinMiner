@@ -5,7 +5,7 @@ Mine Bitcoin (pBTC) with EOS CPU / NET Resources and an EOS wallet compatible wi
 https://bloks.io/rex?tab=rent
 This is a good tool to have after you've created a wallet.  You can rent eos direct to your cpu if you want to mine with more than you own. Renting and mining has risk, mining with EOS you own doesn't.  
 
-https://btcminer.one redirects to this github site.
+http://btcminer.one redirects to this github site.
 https://soveos.github.io/BitcoinMiner/
 
 
